@@ -1,0 +1,12 @@
+Pré requisitos testados em OCI:
+- Oracle linux 7.9
+- Istio 16.1
+- As redes do clusters, mesmo que diferentes devem estar acessíveis uma ao outro (via DRG peering ou local peering). Para que o API endpoint seja conhecido entre os dois clusters.
+- Uma implantação de malha de serviço multicluster requer que você estabeleça confiança entre todos os clusters na malha, então é necessário utilizar-se de certificados 
+para essa comunicação. https://istio.io/latest/docs/tasks/security/cert-management/plugin-ca-cert/
+- Context configurados na máquina de acesso, onde as variaveis são os contexts de cada cluster:
+- pegar os dois kubeconfig e colocar na maquina bastion (cluster 1 > config1 , cluster2 > config2)
+- KUBECONFIG=./config1:./config2 kubectl config view --flatten > ./config
+- Para obter os contextos: kubectl config get-contexts
+$ export CTX_CLUSTER1=<your cluster1 context>
+$ export CTX_CLUSTER2=<your cluster2 context>
